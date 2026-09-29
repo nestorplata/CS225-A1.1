@@ -5,7 +5,7 @@
 
 int Entity::component_count()
 {
-    return ComponentList.size();
+    return 0;
 }
 
 void Entity::attach(Component* p_child)
@@ -18,17 +18,19 @@ void Entity::attach(Component& ref_child)
     ComponentList.push_back(&ref_child);
 }
 
-Component* Entity::operator[] (int index)
-{
 
+
+Component& Entity::operator[] (int index)
+{
     std::list<Component*>::iterator it;
     
     int i =0;
-    for (it = ComponentList.begin();it != ComponentList.end(); it++, i++)
+    for (it = ComponentList.begin();it != ComponentList.end(); it++)
     {
-        if(i==index) return *it;
+        if(i==index) return **it;
+        i++;
     }
-    return nullptr;    
+    return **it;
 }
 
 

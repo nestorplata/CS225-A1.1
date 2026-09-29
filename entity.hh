@@ -3,17 +3,18 @@
 #include<stdio.h>
 #include<list>
 
-class Entity :public IComparable, ICloneable, IPrintable
+class Entity 
 {
 protected:
 std::list<Component*> ComponentList;
 
 public:
-
+ Entity() {}
 int component_count();
 void attach(Component*);
 void attach(Component&);
-Component*  operator[] (int);
+
+Component& operator[] (int index);
 
 ~Entity();
 

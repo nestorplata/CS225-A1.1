@@ -14,12 +14,15 @@
         return this->get_id() == otherCircle.get_id();
 
     }
+
+    
     void Component::print() 
     {
         std::cout<<"this is a Component (with id=" +get_id();
         std::cout<<")\n";
 
     }
+
 
 
     int Component::get_id()
