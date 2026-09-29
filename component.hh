@@ -1,17 +1,14 @@
+#pragma once
+
 #include<stdio.h>
 #include<iostream>
+#include<string>
 
 class ICloneable
 {
     public:
     virtual ICloneable* clone() =0 ;
-    ICloneable* operator=(ICloneable &other) {
-        return static_cast<ICloneable*>(other.clone());
-    }
 
-      ICloneable* operator=(ICloneable *&other) {
-        return static_cast<ICloneable*>(other->clone());
-    }
 
 
 };
@@ -20,9 +17,7 @@ class IComparable
 {
     public:
     virtual bool compare_to(IComparable &other) =0 ;
-    bool operator==(IComparable &other) {
-        return compare_to(other); // Delegates the comparison to the virtual function
-    }
+
 };
 
 class IPrintable
@@ -32,6 +27,7 @@ class IPrintable
 };
 
 class Entity;
+
 class Component :public IPrintable, public ICloneable, public IComparable
 {
 
@@ -39,23 +35,43 @@ class Component :public IPrintable, public ICloneable, public IComparable
     public:
     Entity* Owner;
     int id;
+
+
+    public:
     Component(int i = 0) { id  = i; }
-
-    int get_id();
-    Component* clone() override;
-    bool compare_to(IComparable &other) override;
-    void print() override;
-
-    Entity* get_owner();
-    void set_owner(Entity* Owner);
-
-    Component* operator=(Component &other) {
-        return static_cast<Component*>(other.clone());
+    const int get_id()
+    {
+        return id;
     }
 
-      Component* operator=(Component *&other) {
-        return static_cast<Component*>(other->clone());
+    ICloneable* clone()
+    {
+        ICloneable* cloned = new Component(*this);
+        return cloned;
     }
+    bool compare_to(IComparable &other)
+    {
+        Component& otherComponent = dynamic_cast<Component&> (other);
+        return this->get_id() == otherComponent.get_id();
+
+    }
+
+    void print() 
+    {
+        std::cout<<"this is a Component (with id=" + std::to_string(this->get_id()) + ")\n";
+
+    }
+
+    Entity* get_owner()
+    {
+        return Owner;
+
+    }
+     void set_owner( Entity* Owner)
+    {
+        this->Owner = Owner;
+    }
+
 
 };
 

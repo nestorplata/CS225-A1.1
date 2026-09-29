@@ -3,20 +3,6 @@
 #include "component.hh"
 #include "entity.hh"
 
-int Entity::component_count()
-{
-    return 0;
-}
-
-void Entity::attach(Component* p_child)
-{
-    ComponentList.push_back(p_child);
-}
-
-void Entity::attach(Component& ref_child)
-{
-    ComponentList.push_back(&ref_child);
-}
 
 
 

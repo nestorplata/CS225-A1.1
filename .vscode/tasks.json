@@ -8,6 +8,8 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "-Wall",
+                "component.hh",
+                "entity.hh",
                 "component.cc",
                 "entity.cc",
                 "test_suite.hh",
